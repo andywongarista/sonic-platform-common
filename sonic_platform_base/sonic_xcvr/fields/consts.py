@@ -99,6 +99,10 @@ POWER_CTRL_FIELD = "Power Control"
 POWER_OVERRIDE_FIELD = "Power Override"
 POWER_SET_FIELD = "Power Set"
 
+# SFF-8636
+
+REV_COMPLIANCE_FIELD = "Revision Compliance"
+
 # CMIS
 
 ADMIN_INFO_FIELD = "AdminInfo"
