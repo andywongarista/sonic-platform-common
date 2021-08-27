@@ -107,6 +107,9 @@ REV_COMPLIANCE_FIELD = "Revision Compliance"
 
 ADMIN_INFO_FIELD = "AdminInfo"
 
+MGMT_CHAR_FIELD = "Management Characteristics"
+MGMT_CHAR_MISC_FIELD = "Management Characteristics (Misc)"
+
 # C-CMIS
 
 ## Media Lane FEC Performance Monitoring

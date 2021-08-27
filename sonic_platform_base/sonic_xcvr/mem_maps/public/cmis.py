@@ -1,7 +1,7 @@
 """
     cmis.py
 
-    Implementation of XcvrMemMap for CMIS Rev 4.0
+    Implementation of XcvrMemMap for CMIS Rev 5.0
 """
 
 from ..xcvr_mem_map import XcvrMemMap
@@ -9,6 +9,7 @@ from ...fields.xcvr_field import (
     CodeRegField,
     HexRegField,
     NumberRegField,
+    RegBitField,
     RegGroupField,
     StringRegField,
 )
@@ -23,12 +24,24 @@ class CmisMemMap(XcvrMemMap):
     def __init__(self, codes):
         super(CmisMemMap, self).__init__(codes)
 
+        self.MGMT_CHARACTERISTICS = RegGroupField(consts.MGMT_CHAR_FIELD,
+            NumberRegField(consts.MGMT_CHAR_MISC_FIELD, get_addr(0x0, 2),
+                RegBitField(consts.FLAT_MEM_FIELD, 7)
+            )
+        )
+
         self.ADMIN_INFO = RegGroupField(consts.ADMIN_INFO_FIELD,
             CodeRegField(consts.ID_FIELD, get_addr(0x0, 128), self.codes.XCVR_IDENTIFIERS),
+            CodeRegField(consts.ID_ABBRV_FIELD, get_addr(0x0, 128), self.codes.XCVR_IDENTIFIER_ABBRV),
             StringRegField(consts.VENDOR_NAME_FIELD, get_addr(0x0, 129), size=16),
             HexRegField(consts.VENDOR_OUI_FIELD, get_addr(0x0, 145), size=3),
             StringRegField(consts.VENDOR_PART_NO_FIELD, get_addr(0x0, 148), size=16),
             # TODO: add remaining admin fields
+        )
+
+        self.MODULE_LEVEL_MONITORS = RegGroupField(consts.MODULE_MONITORS_FIELD,
+            NumberRegField(consts.TEMPERATURE_FIELD, get_addr(0x0, 14), size=2, format=">h", scale=256),
+            NumberRegField(consts.VOLTAGE_FIELD, get_addr(0x0, 16), size=2, format=">H", scale=1000),
         )
 
         self.MEDIA_LANE_FEC_PM = RegGroupField(consts.MEDIA_LANE_FEC_PM_FIELD,

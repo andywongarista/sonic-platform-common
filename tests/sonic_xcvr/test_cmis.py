@@ -18,4 +18,10 @@ class TestCmis(object):
         Verify all api access valid fields
         """
         self.api.get_model()
+        self.api.get_transceiver_info()
+        self.api.get_temperature()
+        self.api.get_voltage()
+        self.api.get_paging()
+        self.api.get_temperature_support()
+        self.api.get_voltage_support()
         # TODO: call other methods in the api
